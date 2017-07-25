@@ -26,7 +26,7 @@ function loadJsFromGithub(path) {
 
 function getLatestUrl(account, repo) {
 	
-	var url = "https://api.github.com/repos/"+account+"/"+repo+"/tags?fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
+	var url = "https://tomcat.francoisandre.info/aeris-rest-services/rest/jsloading/versions?component="+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
 	var request = new XMLHttpRequest();
 	request.open('GET', url, true);
 
