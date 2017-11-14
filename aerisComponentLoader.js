@@ -1,5 +1,5 @@
-function loadJsFromGithub(path) {
-	//toto/tutu@version
+function loadJsFromGithub(path, exclusions) {
+	
 	if (path) {
 		var aux = path.split("/");
 		var account = aux[0]
@@ -12,6 +12,16 @@ function loadJsFromGithub(path) {
 				version=aux[1]
 		}
 		if (version) {
+			
+			if (repo) {
+				if (exclusions.length>0) {
+					if (!window.aerisexclusions) {
+						window.aerisexclusions= {}
+					}
+					window.aerisexclusions[repo]=exclusions
+				}
+			}
+			
 			console.log("Account: "+account)
 			console.log("Repo: "+repo)
 			console.log("Version: "+version)
@@ -98,6 +108,12 @@ function getRawgitUrl(account, repo, sha, version) {
 }
 
 var component = document.currentScript.getAttribute('component')
+var exclusion = document.currentScript.getAttribute('exclusion')
+var exclusions = []
+if (exclusion) {
+	exclusions = exclusion.split(',')
+}
+
 if (component) {
-	loadJsFromGithub(component)
+	loadJsFromGithub(component, exclusions)
 }
