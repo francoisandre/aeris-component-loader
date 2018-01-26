@@ -38,39 +38,7 @@ function loadJsFromGithub(path, exclusions) {
 
 function getLatestUrl(account, repo) {
 	
-	var url = "https://sedoo.aeris-data.fr/aeris-rest-services/rest/jsloading/versions?component="+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
-	var request = new XMLHttpRequest();
-	request.open('GET', url, true);
-
-	request.onload = function() {
-	  if (request.status >= 200 && request.status < 400) {
-	    // Success!
-	    var json = JSON.parse(request.responseText);
-	    var latestRelease = json[0];
-		var sha =latestRelease.commit.sha;
-		var version = latestRelease.name;
-		var rawGitUrl = getRawgitUrl(account, repo, sha, version)
-		console.log(rawGitUrl)
-		var scriptTag = document.createElement('script');
-		scriptTag.setAttribute('src',rawGitUrl);
-		document.head.appendChild(scriptTag);
-	  } else {
-	    console.log("Problem with getLatestUrl "+url)
-
-	  }
-	};
-
-	request.onerror = function() {
-		getLatestUrlFromBackup(account, repo)
-	};
-
-	request.send();
-}
-
-
-function getLatestUrlFromBackup(account, repo) {
-	
-	var url = "https://sedoo.aeris-data.fr/aeris-rest-services-backup/rest/jsloading/versions?component="+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
+	var url = "https://sedoo.aeris-data.fr/aeris-rest-services2/rest/jsloading/versions?component="+account+"/"+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
 	var request = new XMLHttpRequest();
 	request.open('GET', url, true);
 
@@ -101,7 +69,7 @@ function getLatestUrlFromBackup(account, repo) {
 
 
 function getVersionUrl(account, repo,version) {
-	var url = "https://sedoo.aeris-data.fr/aeris-rest-services/rest/jsloading/versions?component="+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
+	var url = "https://sedoo.aeris-data.fr/aeris-rest-services2/rest/jsloading/versions?component="+account+"/"+repo+"&fakeparam="+Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10)
 	var request = new XMLHttpRequest();
 	request.open('GET', url, true);
 
